@@ -1,5 +1,6 @@
 package edu.ifma.ifmadrone;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -12,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -19,9 +21,11 @@ import java.util.List;
 
 import dji.common.error.DJIError;
 import dji.common.error.DJISDKError;
+import dji.common.util.CommonCallbacks;
 import dji.log.DJILog;
 import dji.sdk.base.BaseComponent;
 import dji.sdk.base.BaseProduct;
+import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.DJISDKInitEvent;
 import dji.sdk.sdkmanager.DJISDKManager;
 import dji.sdk.sdkmanager.LDMModule;
@@ -49,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_PERMISSION_CODE = 12345;
 
     private TextView regStatus;
+    private TextView regStatus2;
+    private TextView sdkVersion;
+    private ProgressBar regBar;
+    private ProgressBar regBar2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +65,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         regStatus = findViewById(R.id.regStatus);
-        regStatus.setText("clique para registrar");
+        regStatus2 = findViewById(R.id.regStatus2);
+        sdkVersion = findViewById(R.id.sdkVersion);
+        regBar = (ProgressBar) findViewById(R.id.progressBarReg);
+        regBar2 = (ProgressBar) findViewById(R.id.progressBarReg2);
+        //regBar2.setVisibility(View.INVISIBLE);
+
+        sdkVersion.setText(DJISDKManager.getInstance().getSDKVersion());
+        checkAndRequestPermissions();
     }
 
     private void checkAndRequestPermissions() {
@@ -70,19 +85,19 @@ public class MainActivity extends AppCompatActivity {
         }
         // Request for missing permissions
         if (missingPermission.isEmpty()) {
-            regStatus.setText("registrando");
+            regStatus.setText("Registrando...");
             startSDKRegistration();
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            regStatus.setText("Cheque as permissões do App");
             ActivityCompat.requestPermissions((Activity) this,
                     missingPermission.toArray(new String[missingPermission.size()]),
                     REQUEST_PERMISSION_CODE);
         }
-
     }
 
     public void registerApp(View view){
-        regStatus.setText("Checando permissoes...");
-        checkAndRequestPermissions();
+//        regStatus.setText("Checando permissoes...");
+//        checkAndRequestPermissions();
 
     }
     public void abrirVideo(View view){
@@ -103,7 +118,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onRegister(DJIError djiError) {
                 if (djiError == DJISDKError.REGISTRATION_SUCCESS) {
-                    regStatus.setText("Registrado!!!!");
+                    regStatus.setText("Registrado");
+                    regBar.setVisibility(View.INVISIBLE);
+                    //regBar2.setVisibility(View.VISIBLE);
                     DJILog.e("App registration", DJISDKError.REGISTRATION_SUCCESS.getDescription());
                     DJISDKManager.getInstance().startConnectionToProduct();
 
@@ -115,11 +132,30 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProductDisconnect() {
                 Log.d(TAG, "onProductDisconnect");
+                regStatus2.setText("Desconectado");
             }
             @Override
             public void onProductConnect(BaseProduct baseProduct) {
                 Log.d(TAG, String.format("onProductConnect newProduct:%s", baseProduct));
-                regStatus.setText("Produto conectado!");
+
+                Aircraft air = (Aircraft) baseProduct;
+                air.getName(new CommonCallbacks.CompletionCallbackWith<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+                        String[] names = s.split("-");
+                        String name = "UNK";
+                        if(names.length >=2){
+                            name = names[1];
+                        }
+                        regStatus2.setText("Conectado ("+name+")");
+                        regBar2.setVisibility(View.INVISIBLE);
+                    }
+
+                    @Override
+                    public void onFailure(DJIError djiError) {
+                        regStatus2.setText("C8onectado - "+djiError.getDescription());
+                    }
+                });
             }
 
             @Override
