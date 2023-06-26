@@ -6,13 +6,14 @@ import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.util.List;
 
 import dji.common.mission.waypoint.WaypointAction;
 
 @Entity(tableName = "waypoints",
         foreignKeys = {@ForeignKey(entity = MissionModel.class, parentColumns = {"id"}, childColumns = {"mission_id"})})
-public class WaypointModel {
+public class WaypointModel implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

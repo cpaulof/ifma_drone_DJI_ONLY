@@ -8,10 +8,23 @@
 
     <ListView
         android:id="@+id/missionListView"
-        android:layout_width="561dp"
-        android:layout_height="333dp"
+        android:layout_width="514dp"
+        android:layout_height="267dp"
         android:layout_marginStart="132dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView5"
+        style="@style/TextAppearance.Material3.DisplayMedium"
+        android:layout_width="790dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="Missões salvas"
+        android:textColor="@color/sred"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

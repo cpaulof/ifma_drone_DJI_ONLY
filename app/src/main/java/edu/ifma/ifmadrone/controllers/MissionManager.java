@@ -173,9 +173,19 @@ public class MissionManager {
     }
 
     public List<MissionModel> getAllMissions(){
-        return missionDAO.getAll();
+        List<MissionModel> missions = missionDAO.getAll();
+        for(MissionModel mission: missions){
+            mission.setWaypointModels(getWaypoints(mission.getId()));
+            for(WaypointModel waypoint: mission.getWaypointModels()){
+                waypoint.setWaypointActionModels(getWaypointActions(waypoint.getId()));
+            }
+        }
+        return missions;
     }
     public List<WaypointModel> getWaypoints(int mission_id){
         return waypointDAO.getWaypoints(mission_id);
+    }
+    public List<WaypointActionModel> getWaypointActions(int waypoint_id){
+        return waypointActionDAO.getWaypointActions(waypoint_id);
     }
 }

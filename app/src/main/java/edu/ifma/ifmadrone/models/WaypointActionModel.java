@@ -5,6 +5,7 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.util.List;
 
 import dji.common.mission.waypoint.WaypointAction;
@@ -17,7 +18,7 @@ import dji.common.mission.waypoint.WaypointAction;
         childColumns = "waypoint_id",
         onDelete = ForeignKey.CASCADE
 ))
-public class WaypointActionModel {
+public class WaypointActionModel implements Serializable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     private int id;
