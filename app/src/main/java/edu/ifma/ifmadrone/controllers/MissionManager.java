@@ -7,6 +7,7 @@ import androidx.room.Room;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import dji.common.flightcontroller.LocationCoordinate3D;
 import dji.common.mission.waypoint.Waypoint;
@@ -33,11 +34,14 @@ public class MissionManager {
     private WaypointDAO waypointDAO;
     private WaypointActionDAO waypointActionDAO;
 
+    private MissionDatabase db;
+
     public MissionManager(Context context){
-        MissionDatabase db = Room.databaseBuilder(context, MissionDatabase.class, "mission-control").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+        db = Room.databaseBuilder(context, MissionDatabase.class, "mission-control").allowMainThreadQueries().fallbackToDestructiveMigration().build();
         missionDAO = db.getMissionDAO();
         waypointDAO = db.getWaypointDAO();
         waypointActionDAO = db.getWaypointActionDAO();
+
     }
 
     public MissionModel getMissionModel(int mission_id){
@@ -142,25 +146,30 @@ public class MissionManager {
     }
 
     public void saveMission(WaypointMission mission){
-        MissionModel missionModel = fromDJIMission2MissionModel(mission);
-        Log.v("MISSION CONTROL", "inserting mission");
-        long mission_id = missionDAO.insert(missionModel);
-        Log.v("MISSION CONTROL", "_ mission - "+mission_id);
-        int i = 0;
-        for(WaypointModel waypoint: missionModel.getWaypointModels()){
-            waypoint.setMission_id((int)mission_id);
-            Log.v("MISSION CONTROL", "inserting waypoint: "+i);
-            Log.v("MISSION CONTROL", "Mission ids: "+missionModel.getId()+ ", "+waypoint.getMission_id());
-            Log.v("MISSION CONTROL", "Mission id from waypoint: "+missionModel.getId()+ ", "+waypoint.getMission_id());
-            long waypoint_id = waypointDAO.insert(waypoint);
-            i+=1;
+        db.runInTransaction(new Runnable() {
+            @Override
+            public void run() {
+                MissionModel missionModel = fromDJIMission2MissionModel(mission);
+                Log.v("MISSION CONTROL", "inserting mission");
+                long mission_id = missionDAO.insert(missionModel);
+                Log.v("MISSION CONTROL", "_ mission - "+mission_id);
+                int i = 0;
+                for(WaypointModel waypoint: missionModel.getWaypointModels()){
+                    waypoint.setMission_id((int)mission_id);
+                    Log.v("MISSION CONTROL", "inserting waypoint: "+i);
+                    Log.v("MISSION CONTROL", "Mission ids: "+missionModel.getId()+ ", "+waypoint.getMission_id());
+                    Log.v("MISSION CONTROL", "Mission id from waypoint: "+missionModel.getId()+ ", "+waypoint.getMission_id());
+                    long waypoint_id = waypointDAO.insert(waypoint);
+                    i+=1;
 
-            for(WaypointActionModel action: waypoint.getWaypointActionModels()){
-                Log.v("MISSION CONTROL", "inserting waypoint action: "+i);
-                action.setWaypoint_id((int)waypoint_id);
-                waypointActionDAO.insert(action);
+                    for(WaypointActionModel action: waypoint.getWaypointActionModels()){
+                        Log.v("MISSION CONTROL", "inserting waypoint action: "+i);
+                        action.setWaypoint_id((int)waypoint_id);
+                        waypointActionDAO.insert(action);
+                    }
+                }
             }
-        }
+        });
     }
 
     public List<MissionModel> getAllMissions(){

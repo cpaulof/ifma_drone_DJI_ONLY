@@ -31,6 +31,7 @@ import dji.sdk.sdkmanager.DJISDKManager;
 import dji.sdk.sdkmanager.LDMModule;
 import dji.sdk.sdkmanager.LDMModuleType;
 import edu.ifma.ifmadrone.views.CreateMission;
+import edu.ifma.ifmadrone.views.MissionList;
 import edu.ifma.ifmadrone.views.TestMissionModel;
 import edu.ifma.ifmadrone.views.VideoFeedActivity;
 
@@ -190,6 +191,10 @@ public class MainActivity extends AppCompatActivity {
     // TEST mission
     public void onMissionControlClick(View view){
         Intent intent = new Intent(this, TestMissionModel.class);
+        startActivity(intent);
+    }
+    public void onMissionListClick(View view){
+        Intent intent = new Intent(this, MissionList.class);
         startActivity(intent);
     }
 }

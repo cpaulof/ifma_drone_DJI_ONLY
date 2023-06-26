@@ -144,10 +144,21 @@
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="207dp"
-        android:layout_marginTop="83dp"
+        android:layout_marginStart="268dp"
+        android:layout_marginTop="76dp"
         android:onClick="onMissionControlClick"
         android:text="TestMissionc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sdkVersion" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="76dp"
+        android:onClick="onMissionListClick"
+        android:text="TestMissionList"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sdkVersion" />
 

@@ -10,4 +10,5 @@ public abstract class MissionDatabase extends RoomDatabase {
     public abstract MissionDAO getMissionDAO();
     public abstract WaypointDAO getWaypointDAO();
     public abstract WaypointActionDAO getWaypointActionDAO();
+
 }

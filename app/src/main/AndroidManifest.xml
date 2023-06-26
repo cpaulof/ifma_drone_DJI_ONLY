@@ -34,9 +34,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IFMADrone">
         <activity
-            android:name=".views.TestMissionModel"
+            android:name=".views.components.MissionListView"
             android:exported="false"
             android:screenOrientation="reverseLandscape"/>
+        <activity
+            android:name=".views.MissionList"
+            android:exported="false"
+            android:screenOrientation="reverseLandscape"/>
+        <activity
+            android:name=".views.TestMissionModel"
+            android:exported="false"
+            android:screenOrientation="reverseLandscape" />
         <activity
             android:name=".views.CreateMission"
             android:exported="false"
