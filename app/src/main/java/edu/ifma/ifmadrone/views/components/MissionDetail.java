@@ -2,8 +2,10 @@ package edu.ifma.ifmadrone.views.components;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import dji.common.mission.waypoint.WaypointMissionFinishedAction;
@@ -11,11 +13,13 @@ import dji.common.mission.waypoint.WaypointMissionFlightPathMode;
 import dji.common.mission.waypoint.WaypointMissionGotoWaypointMode;
 import dji.common.mission.waypoint.WaypointMissionHeadingMode;
 import edu.ifma.ifmadrone.R;
+import edu.ifma.ifmadrone.controllers.MissionManager;
 import edu.ifma.ifmadrone.models.MissionModel;
+import edu.ifma.ifmadrone.views.CreateMission;
+import edu.ifma.ifmadrone.views.MissionControlView;
 
 public class MissionDetail extends AppCompatActivity {
     MissionModel mission;
-
     TextView missionId;
     TextView missionName;
     @Override
@@ -50,5 +54,14 @@ public class MissionDetail extends AppCompatActivity {
         );
         ((TextView) findViewById(R.id.detailMissionGPRE)).setText(""+mission.isGimbal_pitch_rotation_enabled());
         ((TextView) findViewById(R.id.detailMissionRT)).setText(""+mission.getRepeat_times());
+    }
+
+    public void onBtnGotoMC(View view){
+        Intent intent = new Intent(this, MissionControlView.class);// =============================================================================
+        // =============================================================================
+        // =============================================================================
+        intent.putExtra("MISSION", mission);
+        startActivity(intent);
+
     }
 }

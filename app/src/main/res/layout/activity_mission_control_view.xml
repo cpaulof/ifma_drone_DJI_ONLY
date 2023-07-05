@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.MissionControlView">
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="827dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="3dp"
+        android:gravity="center"
+        android:text="Mission Control"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="317dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="13dp"
+        android:gravity="center"
+        android:text="Waypoints"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="311dp"
+        android:layout_height="280dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="241dp"
+        android:layout_height="158dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/btnMCLoadMission">
+
+        <TextureView
+            android:id="@+id/textureView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/btnMCLoadMission"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="240dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="36dp"
+        android:onClick="loadMission"
+        android:text="Load Mission"
+        app:cornerRadius="5dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/missionState" />
+
+    <Button
+        android:id="@+id/button5"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="162dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="104dp"
+        android:drawableLeft="@drawable/baseline_pause_24"
+        android:onClick="pauseMission"
+        android:text="Pausar"
+        app:cornerRadius="5dp"
+        app:layout_constraintStart_toEndOf="@+id/btnMCLoadMission"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <Button
+        android:id="@+id/button6"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="162dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="84dp"
+        android:drawableLeft="@drawable/baseline_stop_24"
+        android:onClick="stopMission"
+        android:text="Parar"
+        app:cornerRadius="5dp"
+        app:layout_constraintStart_toEndOf="@+id/frameLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/button5" />
+
+    <Button
+        android:id="@+id/button"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="162dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="76dp"
+        android:drawableLeft="@drawable/baseline_upload_24"
+        android:onClick="uploadMission"
+        android:text="Upload"
+        app:cornerRadius="5dp"
+        app:layout_constraintStart_toEndOf="@+id/frameLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/button5" />
+
+    <Button
+        android:id="@+id/button7"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="162dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="120dp"
+        android:drawableLeft="@drawable/baseline_start_24"
+        android:onClick="startMission"
+        android:text="Start"
+        app:cornerRadius="5dp"
+        app:layout_constraintStart_toEndOf="@+id/frameLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/button5" />
+
+    <TextView
+        android:id="@+id/textView13"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="102dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="157dp"
+        android:layout_marginTop="22dp"
+        android:text="Status"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/missionState"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="31dp"
+        android:layout_marginStart="157dp"
+        android:layout_marginTop="10dp"
+        android:text="READY_TO_UPLOAD"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+</androidx.constraintlayout.widget.ConstraintLayout>

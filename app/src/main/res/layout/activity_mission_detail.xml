@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/detailMissionName"
         style="@style/TextAppearance.Material3.DisplaySmall"
-        android:layout_width="768dp"
+        android:layout_width="642dp"
         android:layout_height="61dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="4dp"
@@ -281,5 +281,20 @@
         app:layout_constraintStart_toEndOf="@+id/scrollView2"
         app:layout_constraintTop_toBottomOf="@+id/detailMissionWaypointsCount"
         app:srcCompat="@drawable/ic_launcher_background" />
+
+    <Button
+        android:id="@+id/btnGotoMC"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="139dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="12dp"
+        android:onClick="onBtnGotoMC"
+        android:text=">> Ver no MC"
+        android:textColor="@color/sgray"
+        android:textSize="12sp"
+        app:cornerRadius="2dp"
+        app:layout_constraintStart_toEndOf="@+id/detailMissionName"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

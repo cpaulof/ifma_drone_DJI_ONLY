@@ -9,24 +9,58 @@
     tools:context=".views.MainPage">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnOpenVideoStream"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="171dp"
         android:layout_height="54dp"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="96dp"
-        android:alpha="1"
+        android:layout_marginStart="172dp"
+        android:layout_marginTop="168dp"
         android:background="#00FFFFFF"
+        android:onClick="handleBntClick"
         android:text="Video Stream"
+        android:textColor="@color/sgray"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button5"
-        android:layout_width="215dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="176dp"
+        android:id="@+id/btnOpenDetection1"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="171dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="172dp"
+        android:layout_marginTop="236dp"
+        android:background="#00FFFFFF"
+        android:text="Classificação"
+        android:onClick="handleBntClick"
+        android:textColor="@color/sgray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnOpenMissionList"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="171dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="456dp"
+        android:layout_marginTop="236dp"
+        android:background="#00FFFFFF"
         android:text="Mission Control"
+        android:onClick="handleBntClick"
+        android:textColor="@color/sgray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnOpenCreateMission"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="171dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="456dp"
+        android:layout_marginTop="168dp"
+        android:background="#00FFFFFF"
+        android:text="Criar Missão"
+        android:onClick="handleBntClick"
+        android:textColor="@color/sgray"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -23,10 +23,10 @@
 
     <TextView
         android:id="@+id/textView"
-        style="@style/TextAppearance.Material3.ActionBar.Title"
-        android:layout_width="258dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="120dp"
+        style="@style/TextAppearance.Material3.DisplaySmall"
+        android:layout_width="345dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
         android:text="Criação de missões"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,9 +34,10 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="180dp"
-        android:layout_height="131dp"
-        android:layout_marginStart="12dp"
+        style="@style/TextAppearance.AppCompat.Caption"
+        android:layout_width="176dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="Com o drone sobrevoando uma coordenada desejada, adicione essa coordenada como um Waypoint para a missão. "
         app:layout_constraintStart_toEndOf="@+id/frameLayout"
@@ -44,76 +45,103 @@
 
     <Button
         android:id="@+id/btnAdd"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
         android:onClick="onAddBtnClick"
-        android:text="Adicionar"
+        android:text="Adicionar Coordenada"
+        android:textColor="@color/sgray"
+        android:textSize="10sp"
         app:cornerRadius="2dp"
         app:layout_constraintStart_toEndOf="@+id/frameLayout"
-        app:layout_constraintTop_toBottomOf="@+id/loadMissionLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/posLabel" />
+
+    <Button
+        android:id="@+id/btnGotoMissionControl"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="110dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="228dp"
+        android:layout_marginTop="12dp"
+        android:minHeight="0dp"
+        android:onClick="onBtnGotoMissionControl"
+        android:text="Ir para Mission Control"
+        android:textColor="@color/sgray"
+        android:textSize="10sp"
+        android:textStyle="bold|italic"
+        android:visibility="invisible"
+        app:cornerRadius="2dp"
+        app:layout_constraintStart_toEndOf="@+id/frameLayout"
+        app:layout_constraintTop_toBottomOf="@+id/posLabel" />
 
     <Button
         android:id="@+id/btnLoad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="8dp"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="171dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="4dp"
         android:onClick="onBtnLoadClick"
         android:text="Registrar missão"
+        android:textColor="@color/sgray"
+        android:textSize="10sp"
         app:cornerRadius="2dp"
         app:layout_constraintStart_toEndOf="@+id/frameLayout"
         app:layout_constraintTop_toBottomOf="@+id/btnClear" />
 
     <Button
         android:id="@+id/btnClear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="172dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="4dp"
         android:onClick="onBtnClearClick"
         android:text="Limpar"
+        android:textColor="@color/sgray"
+        android:textSize="10sp"
         app:cornerRadius="2dp"
         app:layout_constraintStart_toEndOf="@+id/frameLayout"
         app:layout_constraintTop_toBottomOf="@+id/btnAdd" />
 
     <TextView
         android:id="@+id/posLabel"
-        android:layout_width="176dp"
-        android:layout_height="59dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="15dp"
+        android:layout_width="329dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
         android:text="a"
         app:layout_constraintStart_toEndOf="@+id/frameLayout"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
         android:id="@+id/loadMissionLabel"
-        android:layout_width="148dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="14dp"
+        android:layout_width="140dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="252dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/posLabel"
-        app:layout_constraintTop_toBottomOf="@+id/addedWaypointsLabel" />
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/addedWaypointsLabel"
-        android:layout_width="153dp"
-        android:layout_height="122dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="19dp"
+        android:layout_width="234dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="18dp"
         android:text="Resumo dos waypoints adicionados.\n\nNenhum Waypoint"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/frameLayout"
+        app:layout_constraintTop_toBottomOf="@+id/btnLoad" />
 
     <Button
         android:id="@+id/btnLoadMission"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="7dp"
         android:onClick="onBtnUploadClick"
         android:text="Carregar"
         app:cornerRadius="3dp"
@@ -124,8 +152,8 @@
         android:id="@+id/btnStartMIssion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="69dp"
-        android:layout_marginTop="9dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="4dp"
         android:onClick="onBtnStartClick"
         android:text="Iniciar"
         app:cornerRadius="3dp"
@@ -135,7 +163,7 @@
     <TextView
         android:id="@+id/location"
         android:layout_width="304dp"
-        android:layout_height="37dp"
+        android:layout_height="48dp"
         android:layout_marginStart="64dp"
         android:layout_marginTop="4dp"
         android:clickable="true"

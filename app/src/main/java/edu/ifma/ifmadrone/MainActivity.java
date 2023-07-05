@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -31,12 +32,14 @@ import dji.sdk.sdkmanager.DJISDKManager;
 import dji.sdk.sdkmanager.LDMModule;
 import dji.sdk.sdkmanager.LDMModuleType;
 import edu.ifma.ifmadrone.views.CreateMission;
+import edu.ifma.ifmadrone.views.MainPage;
 import edu.ifma.ifmadrone.views.MissionList;
 import edu.ifma.ifmadrone.views.TestMissionModel;
 import edu.ifma.ifmadrone.views.VideoFeedActivity;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getName();
+
     private static final String[] REQUIRED_PERMISSION_LIST = new String[] {
             Manifest.permission.VIBRATE, // Gimbal rotation
             Manifest.permission.INTERNET, // API requests
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView sdkVersion;
     private ProgressBar regBar;
     private ProgressBar regBar2;
+    private LinearLayout openMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         //regBar2.setVisibility(View.INVISIBLE);
 
         sdkVersion.setText(DJISDKManager.getInstance().getSDKVersion());
+        openMenu = findViewById(R.id.openMenu);
         checkAndRequestPermissions();
     }
 
@@ -123,6 +128,14 @@ public class MainActivity extends AppCompatActivity {
                     regStatus.setText("Registrado");
                     regBar.setVisibility(View.INVISIBLE);
                     //regBar2.setVisibility(View.VISIBLE);
+                    Log.v("ABSHDAGAHS", "============================================");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            openMenu.setVisibility(View.VISIBLE);
+                        }
+                    });
+
                     DJILog.e("App registration", DJISDKError.REGISTRATION_SUCCESS.getDescription());
                     DJISDKManager.getInstance().startConnectionToProduct();
 
@@ -151,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         regStatus2.setText("Conectado ("+name+")");
                         regBar2.setVisibility(View.INVISIBLE);
+                        openMenu.setVisibility(View.VISIBLE);
                     }
 
                     @Override
@@ -186,6 +200,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void onOpenMenuClick(View view){
+        Intent intent = new Intent(this, MainPage.class);
+        startActivity(intent);
     }
 
     // TEST mission

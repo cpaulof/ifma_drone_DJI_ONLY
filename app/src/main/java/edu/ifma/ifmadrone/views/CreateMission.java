@@ -5,10 +5,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
 import android.view.TextureView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import dji.common.error.DJIError;
@@ -39,6 +41,8 @@ import dji.sdk.mission.waypoint.WaypointMissionOperator;
 import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.DJISDKManager;
 import edu.ifma.ifmadrone.R;
+import edu.ifma.ifmadrone.controllers.MissionManager;
+import edu.ifma.ifmadrone.models.MissionModel;
 
 import static dji.keysdk.FlightControllerKey.AIRCRAFT_LOCATION;
 
@@ -46,6 +50,8 @@ public class CreateMission extends AppCompatActivity {
 
     private TextureView videoFeedView;
     private WaypointMission.Builder missionBuilder;
+    private WaypointMission mission;
+    private MissionManager missionManager;
     DJICodecManager codecManager;
     VideoFeeder.VideoDataListener videoDataListener;
 
@@ -58,6 +64,7 @@ public class CreateMission extends AppCompatActivity {
     private TextView positionLabel;
     private TextView waypointsLabel;
     private TextView loadMissionLabel;
+    private Button btnGotoMissionControl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +74,10 @@ public class CreateMission extends AppCompatActivity {
         positionLabel = findViewById(R.id.posLabel);
         waypointsLabel = findViewById(R.id.addedWaypointsLabel);
         loadMissionLabel = findViewById(R.id.loadMissionLabel);
+        btnGotoMissionControl = findViewById(R.id.btnGotoMissionControl);
+
+        missionManager = new MissionManager(getApplicationContext());
+
 
         init();
 
@@ -137,14 +148,30 @@ public class CreateMission extends AppCompatActivity {
 
     public void onBtnLoadClick(View view){
         waypointMissionOperator = getWaypointMissionOperator();
-        DJIError error = waypointMissionOperator.loadMission(missionBuilder.build());
+        mission = missionBuilder.build();
+        DJIError error = waypointMissionOperator.loadMission(mission);
         String msg = "Error";
         if(error==null){ // success
             msg = "Mission Loaded!";
+            MissionManager missionManager = new MissionManager(getApplicationContext());
+            missionManager.saveMission(mission);
+            btnGotoMissionControl.setVisibility(View.VISIBLE);
         }else{
             msg+=error.getDescription();
         }
         loadMissionLabel.setText(msg);
+    }
+
+    public void onBtnGotoMissionControl(View view){
+        if(mission!=null){
+            Intent intent = new Intent(this, MissionControlView.class); // =============================================================================
+            // =============================================================================
+            // =============================================================================
+            // =============================================================================
+            MissionModel missionModel = missionManager.fromDJIMission2MissionModel(mission);
+            intent.putExtra("MISSION", missionModel);
+            startActivity(intent);
+        }
 
     }
 
